@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXPLAY | Cloud Gaming</title>
+<style>
+:root {
+  --bg:#080b14;
+  --panel:#111827;
+  --blue:#4b8dff;
+  --muted:#9aa8bd;
+  --white:#f5f8ff;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
+}
+header {
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6%;
+  border-bottom:1px solid #ffffff12;
+  background:#090d17;
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+.logo { font-size:23px;font-weight:900;letter-spacing:2px; }
+.logo span { color:var(--blue); }
+nav { display:flex;gap:24px; }
+nav a { color:var(--muted);text-decoration:none;font-size:14px; }
+nav a:hover { color:white; }
+button {
+  cursor:pointer;
+  border:0;
+  border-radius:8px;
+  font-weight:bold;
+  padding:12px 18px;
+}
+.primary { background:var(--blue);color:white; }
+.secondary { background:#ffffff12;color:white;border:1px solid #ffffff20; }
+.hero {
+  min-height:390px;
+  padding:65px 7%;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(90deg,#080b14 4%,#080b14e8 42%,#080b1440),
+    radial-gradient(ellipse at 78% 25%,#1856a5 0%,#101b38 35%,#080b14 75%);
+}
+.hero-content { max-width:620px; }
+.eyebrow { color:#7eb0ff;font-size:12px;letter-spacing:3px;font-weight:bold; }
+h1 { font-size:clamp(38px,6vw,65px);line-height:1.04;margin:18px 0; }
+.hero p { color:var(--muted);line-height:1.7;max-width:510px; }
+.actions { display:flex;gap:12px;flex-wrap:wrap;margin-top:24px; }
+.section { padding:35px 6%; }
+.section-top {
+  display:flex;align-items:center;justify-content:space-between;
+  gap:18px;flex-wrap:wrap;margin-bottom:22px;
+}
+h2 { margin:0;font-size:24px; }
+input,select {
+  background:var(--panel);color:white;border:1px solid #ffffff20;
+  border-radius:8px;padding:12px;font-size:14px;
+}
+input { width:min(100%,260px); }
+.games {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px;
+}
+.game {
+  background:var(--panel);
+  border:1px solid #ffffff12;
+  border-radius:13px;
+  overflow:hidden;
+  transition:transform .2s,border-color .2s;
+}
+.game:hover { transform:translateY(-4px);border-color:#4b8dff80; }
+.cover {
+  height:170px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:44px;font-weight:900;
+  background:linear-gradient(135deg,#182c50,#243e68);
+}
+.cover.racing { background:linear-gradient(135deg,#642e25,#171b2a); }
+.cover.adventure { background:linear-gradient(135deg,#23574f,#17223b); }
+.cover.action { background:linear-gradient(135deg,#48316c,#171b2a); }
+.game-info { padding:15px; }
+.game-info h3 { margin:0 0 8px;font-size:17px; }
+.game-info p { color:var(--muted);font-size:13px;min-height:32px;line-height:1.5; }
+.game-bottom { display:flex;align-items:center;justify-content:space-between;gap:8px; }
+.tag { color:#8db5ff;font-size:11px; }
+.play { padding:10px 13px;font-size:12px; }
+.notice {
+  margin:10px 6% 35px;padding:18px 20px;
+  background:#101827;border:1px solid #ffffff15;border-radius:10px;
+  color:var(--muted);font-size:13px;line-height:1.7;
+}
+footer {
+  padding:26px 6%;border-top:1px solid #ffffff12;
+  color:var(--muted);font-size:12px;line-height:1.8;
+}
+.empty { color:var(--muted);grid-column:1/-1;padding:25px 0; }
+@media(max-width:900px) {
+  .games { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  nav { gap:12px; }
+}
+@media(max-width:540px) {
+  header { padding:0 5%;height:65px; }
+  nav a:not(:first-child) { display:none; }
+  .hero { padding:50px 6%;min-height:350px; }
+  .section { padding:28px 5%; }
+  .games { gap:12px; }
+  .cover { height:125px;font-size:35px; }
+  .game-info { padding:11px; }
+  .game-info h3 { font-size:15px; }
+  .game-info p { font-size:12px; }
+  .play { padding:9px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">NEX<span>PLAY</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#library">Games</a>
+    <a href="#how">How it works</a>
+  </nav>
+  <button class="secondary" onclick="showConnection()">Connect</button>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">YOUR GAMES. YOUR SCREEN.</div>
+    <h1>Enter your<br>next world.</h1>
+    <p>
+      A new way to explore your PC game library.
+      Open your browser, choose a game and connect
+      to your gaming PC.
+    </p>
+    <div class="actions">
+      <button class="primary" onclick="goToLibrary()">Explore games ↗</button>
+      <button class="secondary" onclick="showConnection()">Connect to PC</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="library">
+  <div class="section-top">
+    <h2>Explore the library</h2>
+    <input id="search" type="search" placeholder="Search games..."
+      oninput="renderGames()">
+    <select id="category" onchange="renderGames()">
+      <option value="All">All categories</option>
+      <option value="Adventure">Adventure</option>
+      <option value="Racing">Racing</option>
+      <option value="Action">Action</option>
+    </select>
+  </div>
+  <div class="games" id="games"></div>
+</section>
+
+<section class="notice" id="how">
+  <strong>How cloud play works</strong><br>
+  This website is the game library. Your gaming PC runs the
+  game and MoonlightWeb sends the stream to your browser.
+  The PC must be powered on and available. A game card is
+  not playable until the matching game is configured on your PC.
+</section>
+
+<footer>
+  NEXPLAY — Independent cloud gaming interface.<br>
+  Not affiliated with or endorsed by Sony or PlayStation.
+  Game names and artwork belong to their respective owners.
+</footer>
+
+<script>
+/*
+  STEP 1: Replace this with your actual MoonlightWeb
+  remote entry URL after you have configured remote access.
+
+  Do not use localhost for visitors outside your PC.
+*/
+const MOONLIGHTWEB_URL = "";
+
+const games = [
+  {name:"Open World",category:"Adventure",symbol:"◈",
+   style:"adventure",description:"Explore a world full of discoveries."},
+  {name:"Street Racer",category:"Racing",symbol:"➤",
+   style:"racing",description:"Race through challenging tracks."},
+  {name:"Shadow Quest",category:"Action",symbol:"⚔",
+   style:"action",description:"Take on a new action adventure."},
+  {name:"Lost Kingdom",category:"Adventure",symbol:"◇",
+   style:"adventure",description:"Discover a mysterious kingdom."},
+  {name:"Turbo Drive",category:"Racing",symbol:"🏁",
+   style:"racing",description:"Put your driving skills to the test."},
+  {name:"Cyber Arena",category:"Action",symbol:"✦",
+   style:"action",description:"Enter a futuristic battleground."},
+  {name:"Wild Frontier",category:"Adventure",symbol:"⌁",
+   style:"adventure",description:"Explore the great outdoors."},
+  {name:"Night Circuit",category:"Racing",symbol:"⚡",
+   style:"racing",description:"Race under the city lights."}
+];
+
+function renderGames() {
+  const search = document.getElementById("search").value.toLowerCase();
+  const category = document.getElementById("category").value;
+  const filtered = games.filter(g =>
+    g.name.toLowerCase().includes(search) &&
+    (category === "All" || g.category === category)
+  );
+
+  const container = document.getElementById("games");
+  if (!filtered.length) {
+    container.innerHTML = '<div class="empty">No games found.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(g => `
+    <article class="game">
+      <div class="cover ${g.style}">${g.symbol}</div>
+      <div class="game-info">
+        <h3>${g.name}</h3>
+        <p>${g.description}</p>
+        <div class="game-bottom">
+          <span class="tag">${g.category}</span>
+          <button class="primary play"
+            onclick="playGame('${g.name}')">Play ↗</button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function playGame(name) {
+  if (!MOONLIGHTWEB_URL) {
+    alert("The game library is ready, but streaming is not connected yet. Configure MoonlightWeb and add your remote entry URL first.");
+    return;
+  }
+  const ok = confirm(
+    "Open the MoonlightWeb streaming page to play " + name + "?"
+  );
+  if (ok) window.open(MOONLIGHTWEB_URL, "_blank", "noopener,noreferrer");
+}
+
+function showConnection() {
+  if (MOONLIGHTWEB_URL) {
+    window.open(MOONLIGHTWEB_URL, "_blank", "noopener,noreferrer");
+  } else {
+    alert("MoonlightWeb has not been connected yet. Follow the connection steps below the website setup guide.");
+  }
+}
+
+function goToLibrary() {
+  document.getElementById("library").scrollIntoView({behavior:"smooth"});
+}
+
+renderGames();
+</script>
+</body>
+</html>
